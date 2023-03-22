@@ -14,6 +14,8 @@ jobs:
     - name: Build
       run: |
         git status
+        git config --global --add safe.directory /__w/playgroundgo/playgroundgo
+        git status
         make build buildtiny
 
     - name: Tests
