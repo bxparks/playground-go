@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: tinygo/tinygo
+    container: ghcr.io/tinygo-org/tinygo-dev
 
     steps:
     - name: Checkout Playground Go
