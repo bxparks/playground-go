@@ -31,7 +31,7 @@ test:
 # compatible with vim quickfix.
 buildtiny:
 	set -e; \
-	for i in cmd/*/Makefile; do \
+	for i in */Makefile; do \
 		$(MAKE) -C $$(dirname $$i) $@; \
 	done
 
@@ -47,6 +47,6 @@ testtiny:
 
 clean:
 	set -e; \
-	for i in cmd/*/Makefile; do \
+	for i in */Makefile; do \
 		$(MAKE) -C $$(dirname $$i) $@; \
 	done
