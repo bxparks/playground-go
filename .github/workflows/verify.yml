@@ -6,9 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # We should use the `tinygo` image, but there's a permission problem with
-    # it. The `tinygo-dev` image seems to work.
-    container: ghcr.io/tinygo-org/tinygo-dev
+    # The `tinygo` image requires settings the user to `root`.
+    # The `tinygo-dev` image does not need the `options` line.
+    # See https://github.com/actions/checkout/issues/841
+    container:
+      image: ghcr.io/tinygo-org/tinygo
+      options: --user root
 
     steps:
     - name: Checkout Playground Go
