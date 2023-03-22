@@ -5,11 +5,11 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/tinygo-org/tinygo
+    container: tinygo/tinygo
 
     steps:
     - name: Checkout Playground Go
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Build
       run: |
