@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # We should use `tinygo` image, but there's a permission problem with it.
-    # The `tinygo-dev` image seems to work.
+    # We should use the `tinygo` image, but there's a permission problem with
+    # it. The `tinygo-dev` image seems to work.
     container: ghcr.io/tinygo-org/tinygo-dev
 
     steps:
@@ -37,6 +37,6 @@ jobs:
       run: |
         make build buildtiny
 
-    - name: Tests
+    - name: Test
       run: |
         make test testtiny
