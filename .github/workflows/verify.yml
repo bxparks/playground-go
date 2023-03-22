@@ -5,16 +5,36 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # We should use `tinygo` image, but there's a permission problem with it.
+    # The `tinygo-dev` image seems to work.
     container: ghcr.io/tinygo-org/tinygo-dev
 
     steps:
     - name: Checkout Playground Go
       uses: actions/checkout@v3
 
+      # Fix an obscure permission problem among: git, tinygo, go, and docker.
+      #
+      # First, `tinygo` prints this error message, which points to a flag
+      # from `go`:
+      #   error obtaining VCS status: exit status 128
+      #   Use -buildvcs=false to disable VCS stamping.
+      #
+      # Second, running `git status` in the container prints this message:
+      #   fatal: detected dubious ownership in repository at
+      #   '/__w/playgroundgo/playgroundgo'
+      #   To add an exception for this directory, call:
+      #   git config --global --add safe.directory
+      #       /__w/playgroundgo/playgroundgo
+      #
+      # We have to run this `git config` command to fix those problems.
+    - name: Fix Git Permission Error
+      run: |
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
     - name: Build
       run: |
-        git config --global --add safe.directory /__w/playgroundgo/playgroundgo
-        git status
         make build buildtiny
 
     - name: Tests
